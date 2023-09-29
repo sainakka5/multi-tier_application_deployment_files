@@ -1,0 +1,20 @@
+#database-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+spec:
+  replicas: 2 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: database
+          image: sainakka/appdeploy:database-tag3
+          ports:
+            - containerPort: 3306

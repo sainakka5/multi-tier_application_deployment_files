@@ -1,0 +1,36 @@
+# secret-definition.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+data:
+  username: base64encodedusername
+  password: base64encodedpassword
+ 
+
+
+---
+
+
+# pod-definition.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: my-image
+    env:
+    - name: DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: username
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: password
+

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: database-statefulset
+spec:
+  serviceName: "database"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: database
+          image: sainakka/appdeploy:database-tag3 # Use the correct image name and tag
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: sai123
+            - name: MYSQL_DATABASE
+              value: saidatabase
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  selector:
+    app: database
+  ports:
+    - protocol: TCP
+      port: 3306
+

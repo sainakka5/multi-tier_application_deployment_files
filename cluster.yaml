@@ -1,0 +1,24 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: sai-clusters
+  region: ap-south-1
+
+availabilityZones: ["ap-south-1a", "ap-south-1b"]  # Define your desired availability zones here
+
+nodeGroups:
+  - name: my-nodes
+    instanceType: t2.medium
+    desiredCapacity: 2  # Increase desired capacity for high availability
+    minSize: 2  # Ensure minimum size is at least 2 for high availability
+    maxSize: 3
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      instance-type: onDemand
+    ssh:
+      publicKeyName: key
+
