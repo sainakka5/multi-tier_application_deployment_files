@@ -1,0 +1,12 @@
+FROM mysql:5.7
+
+# Environment variables for database initialization (optional)
+ENV MYSQL_ROOT_PASSWORD=sai123
+ENV MYSQL_DATABASE=saidatabase
+EXPOSE 3306
+
+# Optionally, you can include SQL scripts to initialize the database
+# COPY init.sql /docker-entrypoint-initdb.d/
+
+# Start the MySQL database server
+CMD ["mysqld"]
